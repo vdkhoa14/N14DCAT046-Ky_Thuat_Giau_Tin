@@ -1,0 +1,10 @@
+body{
+    padding: 0px !important;
+    margin: 0px;
+    font: normal 16px/1.25 bluehost, 'Segoe UI', 'Gill Sans', 'Gill Sans MT', GillSans, 'Trebuchet MS', Arial, sans-serif;
+}
+@media only screen and (min-width: 768px){
+    body{
+        min-width: 1000px;
+    }
+}

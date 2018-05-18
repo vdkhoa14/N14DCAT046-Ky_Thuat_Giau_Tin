@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#000000">
+
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css">
+  </script>
+
+  <title>Giấu tin trong ảnh</title>
+</head>
+
+<body>
+  <noscript>
+    You need to enable JavaScript to run this app.
+  </noscript>
+  <div id="root"></div>
+
+
+  <pre id="content"></pre>
+
+  <script type="text/javascript">
+
+    var appData = [];
+
+    // Client ID and API key from the Developer Console
+    var CLIENT_ID = '595142818861-sed1t76pdrs3q7mpf0dtbocc8ggrsarc.apps.googleusercontent.com';
+    var API_KEY = 'AIzaSyCWQ6ZeQ3NDLTGb-WtxRfrjNNvehD8UomI';
+
+    // Array of API discovery doc URLs for APIs used by the quickstart
+    var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v2/rest"];
+
+    // Authorization scopes required by the API; multiple scopes can be
+    // included, separated by spaces.
+    var SCOPES = 'https://www.googleapis.com/auth/drive';
+
+    /**
+     *  On load, called to load the auth2 library and API client library.
+     */
+    function handleClientLoad() {
+      gapi.load('client:auth2', initClient);
+    }
+
+    function initClient() {
+      gapi.client.init({
+        apiKey: API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES
+      }).then(function () {
+        // Listen for sign-in state changes.
+        // gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+        // Handle the initial sign-in state.
+        // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        handleAuthClick();
+      });
+    }
+
+    function updateSigninStatus(isSignedIn) {
+      if (isSignedIn) {
+        authorizeButton.style.display = 'none';
+        signoutButton.style.display = 'block';
+        listFiles();
+      } else {
+        authorizeButton.style.display = 'block';
+        signoutButton.style.display = 'none';
+      }
+    }
+
+
+    function handleAuthClick() {
+      gapi.auth2.getAuthInstance().signIn()
+    }
+
+
+    function handleSignoutClick() {
+      gapi.auth2.getAuthInstance().signOut();
+    }
+
+
+    function appendPre(message) {
+      var pre = document.getElementById('content');
+      var textContent = document.createTextNode(message + '\n');
+      pre.appendChild(textContent);
+    }
+
+
+    // function listFiles() {
+    //   gapi.client.drive.files.list({
+    //     'pageSize': 10,
+    //     'fields': "nextPageToken, files(id, name)"
+    //   }).then(function (response) {
+    //     var files = response.result.files;
+    //     if (files && files.length > 0) {
+    //       for (var i = 0; i < files.length; i++) {
+    //         var file = files[i];
+    //         appData.push({ id: file.id, name: file.name });
+    //       }
+    //     } else {
+    //     }
+    //   });
+    //   console.log(appData)
+    // }
+
+    function retrieveAllFiles(callback) {
+      var retrievePageOfFiles = function (request, result) {
+        request.execute(function (resp) {
+          result = result.concat(resp.items);
+          var nextPageToken = resp.nextPageToken;
+          if (nextPageToken) {
+            request = gapi.client.drive.files.list({
+              'pageToken': nextPageToken
+            });
+            retrievePageOfFiles(request, result);
+          } else {
+            callback(result);
+          }
+        });
+      }
+      var initialRequest = gapi.client.drive.files.list();
+      retrievePageOfFiles(initialRequest, []);
+    }
+
+    function printFile(fileId, callback) {
+      var request = gapi.client.drive.files.get({
+        'fileId': fileId
+      });
+      request.execute((resp) => {
+        callback(resp);
+      });
+    }
+
+
+    function retrieveAllFilesInFolder(folderId, callback) {
+      var retrievePageOfChildren = function (request, result) {
+        request.execute(function (resp) {
+          result = result.concat(resp.items);
+          var nextPageToken = resp.nextPageToken;
+          if (nextPageToken) {
+            request = gapi.client.drive.children.list({
+              'folderId': folderId,
+              'pageToken': nextPageToken
+            });
+            retrievePageOfChildren(request, result);
+          } else {
+            callback(result);
+          }
+        });
+      }
+      var initialRequest = gapi.client.drive.children.list({
+        'folderId': folderId
+      });
+      retrievePageOfChildren(initialRequest, []);
+    }
+
+    function isFileInFolder(folderId, fileId, callback) {
+      var request = gapi.client.drive.children.get({
+        'folderId': folderId,
+        'childId': fileId
+      });
+      request.execute(function (resp) {
+        if (resp.error) {
+          if (resp.error.code = 404) {
+            callback(false);
+          } else {
+            console.log('An error occurred: ' + resp.error.message);
+            callback(null);
+          }
+        } else {
+          callback(true);
+        }
+      });
+    }
+
+    function insertFileIntoFolder(folderId, fileId, callback) {
+      var body = new { id: fileId }
+      var request = gapi.client.drive.children.insert({
+        'folderId': folderId,
+        'resource': body
+      });
+
+      request.execute(function (resp) {
+        callback(resp)
+      });
+    }
+
+    function deleteFile(fileId, callback) {
+      var request = gapi.client.drive.files.delete({
+        'fileId': fileId
+      });
+      request.execute(function (resp) {
+        callback(resp);
+      });
+    }
+
+    function downloadFile(fileID, callback) {
+      var fileId = fileID;
+      var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;// or this: gapi.auth.getToken().access_token;
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://www.googleapis.com/drive/v3/files/" + fileId + '?alt=media', true);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.responseType = 'arraybuffer'
+      xhr.onload = function () {
+        var arrayBuffer = xhr.response
+        if (arrayBuffer) {
+          callback(arrayBuffer);
+        }
+      }
+      xhr.send();
+      // if (file.webContentLink) {
+      //   var accessToken = gapi.auth.getToken().access_token;
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', file.downloadUrl);
+      //   xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      //   xhr.onload = function () {
+      //     console.log("xhr", xhr)
+      //     var arrayBuffer = xhr.response;
+      //     if (arrayBuffer) {
+      //       var byteArray = new Uint8Array(arrayBuffer)
+      //       // saveByteArray(byteArray, "test.wav")
+      //     }
+
+      //     callback(xhr.response);
+      //   };
+      //   xhr.onerror = function () {
+      //     callback(null);
+      //   };
+      //   xhr.send();
+      // } else {
+      //   callback(null);
+      // }
+    }
+
+    const saveByteArray = (function () {
+      var a = document.createElement("a");
+      document.body.appendChild(a);
+      a.style = "display: none";
+      return function (data, name) {
+        var blob = new Blob(data, { type: "audio/wav" }),
+          url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      };
+    }());
+
+
+  </script>
+
+  <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
+</body>
+
+</html>

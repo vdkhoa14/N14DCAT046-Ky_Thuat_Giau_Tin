@@ -1,0 +1,356 @@
+
+input[type="file"]{
+    display: block;
+    margin: 30px auto 0px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+input[type="file"]::-webkit-file-upload-button{
+    border-radius: 0px !important;
+    background: #fefefe;
+    color: #aaa;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+.home-page{
+
+    font-family: sans-serif;
+}
+.home-page .login_form_a{
+    width: 100%;
+    height: 100vh;
+    background: #1C374F;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+.home-page .login_form_a .form_detail{
+    width: 350px;
+    height: fit-content;
+    background: #5199C9;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 2px;
+}
+.home-page .login_form_a .form_detail .header{
+    padding: 10px 20px;
+}
+.home-page .login_form_a .form_detail .header > span{
+    border-bottom: 1px solid rgba(183, 234, 252, 0.404);
+    color: #B7EAFC;
+    font-weight: 100;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+.home-page .login_form_a .form_detail .contain{
+    padding: 10px 40px;
+    box-sizing: border-box;
+}
+.home-page .login_form_a .form_detail .contain input{
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: 100;
+    border-radius: 2px;
+}
+.home-page .login_form_a .form_detail .contain button{
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    margin: auto;
+    display: block;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 100;
+    color: #fff;
+    background: #666666;
+    margin-bottom: 15px;
+}
+.home-page .login_form_a .form_detail .contain span.login_notify {
+    color: rgb(250, 202, 162);
+    font-weight: 100;
+    letter-spacing: 1px;
+    font-size: 12px;
+}
+.home-page .login_form_a .form_detail .hint{
+    padding: 20px;
+    border-top: 1px solid rgba(183, 234, 252, 0.404);
+}
+.home-page .login_form_a .form_detail .hint > span,
+.home-page .login_form_a .form_detail .hint > p{
+    color: #B7EAFC;
+    font-weight: 100;
+}
+.home-page .login_form_a .form_detail .hint > span{
+    padding-left: 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.home-page .content .addmin .header,
+.home-page .content .customer .header{
+    width: 100%;
+    background: #1C374F;
+}
+.home-page .content .addmin .header > div,
+.home-page .content .customer .header > div{
+    display: inline-block;
+    width: 50%;
+    padding: 15px;
+    box-sizing: border-box;
+    font-weight: 100;
+    letter-spacing: 1px;
+}
+.home-page .content .addmin .header > div.user_menu,
+.home-page .content .customer .header > div.user_menu{
+    text-align: right;
+}
+.home-page .content .addmin .header > div.user_menu .log_out,
+.home-page .content .addmin .header > div.user_menu .user_name,
+.home-page .content .customer .header > div.user_menu .log_out,
+.home-page .content .customer .header > div.user_menu .user_name{
+    color: #B7EAFC;
+    cursor: pointer;
+    padding: 5px 20px;
+    margin-left: 10px;
+    transition: all 0.3s linear;
+    border-radius: 3px;
+}
+.home-page .content .addmin .header > div.user_menu .user_name,
+.home-page .content .customer .header > div.user_menu .user_name{
+    font-style: italic;
+    border-right: 1px solid rgba(183, 234, 252, 0.404);
+    border-radius: 0px;
+    padding: 0px 30px;
+    cursor: default;
+}
+.home-page .content .addmin .header > div.user_menu .log_out:hover,
+.home-page .content .customer .header > div.user_menu .log_out:hover{
+    background: #B7EAFC;
+    color: #1C374F;
+}
+.home-page .content .addmin .header > div.main_menu > span,
+.home-page .content .customer .header > div.main_menu > span{
+    cursor: pointer;
+    padding: 5px 20px;
+    margin-left: 10px;
+    transition: all 0.3s linear;
+    border-radius: 3px;
+    color: #B7EAFC;
+}
+.home-page .content .addmin .header > div.main_menu > span.active,
+.home-page .content .customer .header > div.main_menu > span.active{
+    border-bottom: 2px solid #B7EAFC;
+    border-radius: 0px;
+}
+.home-page .content .addmin .contain i.fa.fa-plus {
+    font-size: 40px;
+    color: rgba(0,0,0,0.3);
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+body{
+    background: #ccc;
+}
+.home-page .content .addmin .contain .toolbar i.fa.fa-plus:hover{
+    border-radius: 10px;
+    background: #fff;
+    
+}
+.home-page .content .addmin .contain .toolbar{
+    padding: 10px 20px;
+    width: 100%;
+    background: #ddd;
+}
+.home-page .content .addmin .contain .music_box{
+    padding: 10px;
+}
+
+.music_box .music_content{
+    height: 80px;
+    width: fit-content;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    background: #f9f9f9;
+    box-shadow: 0 0 3px #aaa;
+}
+.music_box .music_content:hover .content_right > i,
+.music_box .music_content:hover .content_right > span.bt_buy{
+    display: block;
+}
+.music_box .music_content .content_left{
+    height: 100%;
+    width: 80px;
+    display: inline-block;
+}
+.music_box .music_content .content_right{
+    display: inline-block;
+    width: calc(100% - 80px);
+    position: relative;
+}
+.music_box .music_content .content_left img{
+    height: 100%;
+    width: 80px;
+}
+.music_box .music_content .content_right > span{
+    display: block;
+    width: fit-content;
+}
+.music_box .music_content .content_right > i,
+.music_box .music_content .content_right > span.bt_buy{
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: -10px;
+    padding: 7px;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+.music_box .music_content .content_right > span.bt_buy{
+    background: #5199C9;
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 20px;
+    border-radius: 3px;
+}
+.music_box .music_content .content_right > i:hover{
+    color: #333;
+}
+
+.music_box .music_content .content_right > span.bt_buy:hover{
+    background: rgb(31, 93, 134);
+}
+.music_box .music_content .content_left img{
+    animation: none;
+    -webkit-animation: none;
+}
+.music_box .music_content .content_left img.active{
+    animation: spin 2s linear infinite;
+    -webkit-animation: spin 1s linear infinite;
+}
+
+
+
+#loading {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    border-top-color: #000;
+    animation: spin 2s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+    position: fixed;
+    top: 50vh;
+    left: 50%;
+  }
+  
+  @keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+  @-webkit-keyframes spin {
+    to { -webkit-transform: rotate(360deg); }
+  }
+
+
+#insert_box{
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.95);
+    top: 0px;
+    left: 0px;
+    animation: fadeIn 0.5s;
+}
+#insert_box > div{
+    width: 40%;
+    margin: 100px auto;
+    background: #fff;
+    border-radius: 5px;
+}
+#insert_box > div div.header{
+    padding: 10px 10px;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px 5px 0px 0px;
+}
+#insert_box > div div.detail{
+    min-height: 100px;
+    padding: 10px;
+}
+#insert_box > div div.detail .left{
+    display: inline-block;
+    width:30%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+#insert_box > div div.detail .left img{
+    width: 100%;
+}
+#insert_box > div div.detail .right{
+    display: inline-block;
+    width:70%;
+    vertical-align: top;
+    padding-top: 40px;
+}
+#insert_box > div div.header i{
+    color: #aaa;
+    float: right;
+    padding-top: 2px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+#insert_box > div div.header i:hover{
+    color: #666;
+}
+#insert_box > div div.submit{
+    border-radius: 0px 0px 5px 5px;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+#insert_box > div div.submit > span{
+    padding: 5px 20px;
+    background: #408ADF;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadeIn {
+    from{
+
+        opacity: 0;
+    }
+    to { 
+        opacity: 1;
+     }
+  }
